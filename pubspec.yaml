@@ -1,0 +1,15 @@
+name: customized_streams
+description: This library contains customized streams.
+version: 1.0.0
+author: Dat Thanh Vo <datvt9312@gmail.com>
+homepage: https://github.com/datvt9312/customized_streams
+
+environment:
+  sdk: ">=2.0.0 <3.0.0"
+
+dependencies:
+  analyzer: ">=0.34.0 <0.39.0"
+  rxdart: ^0.22.4
+
+dev_dependencies:
+  test: ^1.0.0
