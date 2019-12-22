@@ -3,7 +3,7 @@ part of customized_streams;
 ///
 /// 1.  defer stream
 /// 2.  broadcast stream (reusable: true)
-/// 3.  switch I to start O processing stream
+/// 3.  convert I to start O processing stream
 /// 4.  transform I stream
 /// 5.  transform O stream
 ///
