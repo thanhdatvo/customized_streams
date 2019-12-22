@@ -8,6 +8,7 @@ part of customized_streams;
 /// 5.  transform O stream
 ///
 class SwitchSubject<I, O> {
+  StreamSubscription<I> inputSubscription;
   StreamSubscription<O> outputSubscription;
   StreamSubscription<O> _subscription;
   Stream<O> outputStream;
@@ -22,10 +23,11 @@ class SwitchSubject<I, O> {
     Stream<I> inputStream;
 
     if (transformInput != null) {
-      inputStream = transformInput(controller.stream);
+      inputStream = transformInput(controller.stream).asBroadcastStream();
     } else {
-      inputStream = controller.stream;
+      inputStream = controller.stream.asBroadcastStream();
     }
+    inputSubscription = inputStream.listen(null);
 
     Observable<O> observableOutput =
         Observable<I>(inputStream).switchMap(process);
@@ -50,6 +52,7 @@ class SwitchSubject<I, O> {
 
   dispose() {
     outputSubscription.cancel();
+    inputSubscription.cancel();
     _subscription.cancel();
     controller.close();
     outputStream.drain();
