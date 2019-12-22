@@ -15,8 +15,9 @@ class ConvertSubject<I, O> {
   dynamic _lastestValue;
   StreamController<I> controller;
 
-  ConvertSubject(Stream<O> Function(I input) process, ConvertType convertType,
-      {Stream<I> Function(Stream<I> stream) transformInput,
+  ConvertSubject(Stream<O> Function(I input) process,
+      {ConvertType convertType = ConvertType.flatMap,
+      Stream<I> Function(Stream<I> stream) transformInput,
       Stream<O> Function(Stream<O> stream) transformOutput}) {
     controller = StreamController<I>();
 
