@@ -14,10 +14,10 @@ class SwitchSubject<I, O> {
   Stream<O> outputStream;
   dynamic _lastestValue;
   StreamController<I> controller;
-  final Stream<I> Function(Stream<I> stream) transformInput;
-  final Stream<O> Function(Stream<O> stream) transformOutput;
-  final Stream<O> Function(I input) process;
-  SwitchSubject(this.process, {this.transformInput, this.transformOutput}) {
+
+  SwitchSubject(Stream<O> Function(I input) process,
+      {Stream<I> Function(Stream<I> stream) transformInput,
+      Stream<O> Function(Stream<O> stream) transformOutput}) {
     controller = StreamController<I>();
 
     Stream<I> inputStream;
