@@ -30,17 +30,18 @@ class ConvertSubject<I, O> {
     }
     inputSubscription = inputStream.listen(null);
 
-    Observable<O> observableOutput;
+    Stream<O> observableOutput;
     switch (convertType) {
       case ConvertType.flatMap:
-        observableOutput = Observable<I>(inputStream).flatMap(process);
+        observableOutput = inputStream.flatMap(process);
         break;
       case ConvertType.switchMap:
-        observableOutput = Observable<I>(inputStream).switchMap(process);
+        observableOutput = inputStream.switchMap(process);
         break;
-      case ConvertType.concatMap:
-        observableOutput = Observable<I>(inputStream).concatMap(process);
-        break;
+      // case ConvertType.concatMap:
+      //   observableOutput = inputStream.concatMap(process);
+      //   break;
+      default: break;
     }
 
     if (transformOutput != null) {

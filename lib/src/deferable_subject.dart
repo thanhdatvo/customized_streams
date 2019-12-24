@@ -30,7 +30,7 @@ class DeferableSubject<T> {
     outputSubscription = inputStream.listen(null);
     if (cacheLatest) {
       outputStream = DeferStream(
-          () => Observable<T>(inputStream).startWith(_lastestValue),
+          () => inputStream.startWith(_lastestValue),
           reusable: true);
     } else {
       outputStream = inputStream;

@@ -29,8 +29,8 @@ class SwitchSubject<I, O> {
     }
     inputSubscription = inputStream.listen(null);
 
-    Observable<O> observableOutput =
-        Observable<I>(inputStream).switchMap(process);
+    Stream<O> observableOutput =
+        inputStream.switchMap(process);
 
     if (transformOutput != null) {
       observableOutput = transformOutput(observableOutput);
