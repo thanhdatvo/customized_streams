@@ -10,7 +10,6 @@ part of customized_streams;
 class SwitchSubject<I, O> {
   StreamSubscription<I> inputSubscription;
   StreamSubscription<O> outputSubscription;
-  StreamSubscription<O> _subscription;
   Stream<O> outputStream;
   dynamic _lastestValue;
   StreamController<I> controller;
@@ -29,17 +28,12 @@ class SwitchSubject<I, O> {
     }
     inputSubscription = inputStream.listen(null);
 
-    Stream<O> observableOutput =
-        inputStream.switchMap(process);
+    Stream<O> observableOutput = inputStream.switchMap(process);
 
     if (transformOutput != null) {
       observableOutput = transformOutput(observableOutput);
     }
     observableOutput = observableOutput.asBroadcastStream();
-
-    _subscription = observableOutput.listen((O value) {
-      _lastestValue = value;
-    });
 
     outputSubscription = observableOutput.listen(null);
 
@@ -48,12 +42,14 @@ class SwitchSubject<I, O> {
   }
 
   O get output => _lastestValue;
-  set input(I value) => controller.add(value);
+  set input(I value) {
+    _lastestValue = value;
+    controller.add(value);
+  }
 
   dispose() {
     outputSubscription.cancel();
     inputSubscription.cancel();
-    _subscription.cancel();
     controller.close();
     outputStream.drain();
   }
