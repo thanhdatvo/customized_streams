@@ -1,2 +1,4 @@
 part of customized_streams;
-enum ConvertType { flatMap, switchMap, concatMap }
+
+@deprecated
+enum ConvertType { flatMap, switchMap, concatMap, exhaustMap }
